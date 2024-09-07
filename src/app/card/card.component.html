@@ -1,0 +1,29 @@
+  <div class="card position-relative" style="width: 16rem;">
+    <div class="position-absolute top-0 start-0 m-2" style="width: 50px; z-index: 10;" alt="Stock Status">
+      <div #dynamicContainer2></div>
+    </div>
+  <a href="products/{{Id}}">
+    <img src="{{image}}" class="card-img-top" alt="Product Image">
+  </a>
+      <div class="card-body">
+        <div class="row">
+        <a href="products/{{Id}}">
+          <h5 class="card-title">{{title}}</h5>
+        </a>
+        </div>
+        <div class="row">
+          <p class="card-text">${{price}}</p>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <div class="rating">
+              <div #dynamicContainer>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <div class="card-footer">
+      <button class="btn btn-primary" (click)="addToCart()">Add to Cart</button>
+    </div>
+  </div>

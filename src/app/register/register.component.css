@@ -1,0 +1,108 @@
+.body{
+  padding: 10px;
+  margin: 0;
+  height: 1000px;
+}
+
+
+
+
+.reg-container {
+  margin-top: 100px;
+  padding: 20px 40px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 400px;
+  height: 750px;
+  text-align: center;
+  margin-bottom: 120px;
+}
+
+.input-group {
+  margin-bottom: 15px;
+  text-align: left;
+}
+
+.label {
+  display: block;
+  font-size: 14px;
+  margin-bottom: 5px;
+  color: #333;
+  font-family: Varela Round;
+  font-weight: bold;
+}
+
+
+button {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+button:hover {
+  opacity: 80%;
+}
+
+.regtxt{
+  font-size: 20px;
+  font-family: Varela Round;
+  font-weight: bold;
+}
+
+.weltxt{
+  font-family: Varela Round;
+  font-weight: bold;
+}
+
+
+
+.test-container {
+  margin-bottom: 25px;
+  text-align: left;
+}
+
+
+.regform {
+  width: 100%;
+  padding: 15px;
+  border-radius: 12px;
+  font-size: 15px;
+  display: block;
+  font-family: Varela Round;
+}
+
+.terms{
+  margin-top: 20px;
+  text-align: left;
+  font-size: 13px;
+  font-family: Varela Round;
+}
+
+.rem-me{
+  margin-top: 20px;
+  font-size: 15px;
+  text-align: left;
+  position: absolute;
+  font-family: Varela Round;
+}
+
+
+.haveacc{
+  font-weight: bold;
+  font-family: Varela Round;
+  text-align: left;
+}
+
+.reg{
+position: absolute;
+margin-left: 200px;
+transition: 1s;
+}
+
+
+.login{
+  text-decoration: none;
+}

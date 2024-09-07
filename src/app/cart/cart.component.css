@@ -1,0 +1,71 @@
+.cart-cont{
+  margin-top: 100px;
+  text-align: left;
+  background-color: aquamarine;
+}
+
+.cart-body{
+  margin-top: 10px;
+  text-align: center;
+}
+
+.title{
+  font-size: 25px;
+  margin-top: 100px;
+  text-align: center;
+  padding-bottom: 25px;
+  border-bottom: 2px solid rgba(0, 0, 0, 0.2);
+
+}
+
+.pc{
+  margin-left:0;
+}
+
+.imgcard{
+  width: 200px;
+  background-color: rgb(222, 222, 222);
+}
+
+.desc-card{
+  margin-left: 0px;
+}
+
+.imgcont{
+  text-align: left;
+}
+
+.infocont{
+  margin-top: 20px;
+  position: absolute;
+  text-align: left;
+  margin-left: 320px;
+  width: 100px;
+}
+
+
+.card{
+  margin-top: 15px;
+  border-style: hidden;
+}
+
+.prodName{
+  width: 150px;
+  font-family: Varela Round;
+  color: navy;
+  font-weight: bold;
+}
+
+
+.prodcode{
+  width: 150px;
+  font-family: Varela Round;
+  color: navy;
+  font-weight: bold;
+}
+
+
+.home{
+
+  min-height: 100vh;
+}

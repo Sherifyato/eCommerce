@@ -1,0 +1,30 @@
+.Cover-section {
+  background-image: url('https://t3.ftcdn.net/jpg/02/98/02/62/360_F_298026229_SmOPh6Uxkd1Cep7FqPfG7F3NT7YcBJFT.jpg');
+  background-size: cover;
+  background-position: center;
+  background-position-y: 65%;
+  color: black;
+  text-align: center;
+  padding: 100px 0;
+}
+.Cover-section h1 {
+  font-size: 4rem;
+}
+.Cover-section p {
+  font-size: 1.5rem;
+}
+.featured-section {
+  padding: 30px 0;
+}
+
+.image-container {
+  position: relative;
+  overflow: hidden;
+}
+.movie-card img {
+  transition: transform 0.3s;
+}
+.movie-card:hover img {
+  transform: scale(1.1);
+
+}
