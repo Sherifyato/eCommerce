@@ -18,6 +18,7 @@ export class ProductDetailsComponent implements AfterViewInit {
   @Input() category!: string
   @Input() description!: string
   @Input() price!: number
+  @Input() stock!: number
   @ViewChild(ImagesComponent) imagesComponent !: ImagesComponent
   @ViewChild('carousel', { static: true }) carousel!: ElementRef
 
@@ -26,32 +27,39 @@ export class ProductDetailsComponent implements AfterViewInit {
     this.route.params.subscribe(params => {this.id= params['id']})
   }
   ngAfterViewInit(): void {
-    this.jsonReader.getJsonData('products.json').subscribe(data => {
+    fetch(`http://localhost:3000/product/${this.id}`)
+    .then(response => {
       var f : boolean = true
-      data.forEach((element : any) => {
-        if(element.id == this.id)
+      response.json().then(element =>{
+        element = element.data
+        this.title = element.title
+        this.description = element.description
+        this.category = element.category
+        this.price = element.price
+        this.stock = +element.stock
+        if (this.stock)
         {
-          this.title = element.title
-          this.description = element.description
-          this.category = element.category
-          this.price = element.price
-          for (const key of element.images)
-          {
-            const ComponentRef = this.imagesComponent.container.createComponent(ImageComponent);
-            ComponentRef.instance.image = key
-            const cardElement = ComponentRef.location.nativeElement;
-            cardElement.classList.add('carousel-item')
-            if (f)
-              cardElement.classList.add('active'), f = false
-          }
+          const button = document.getElementById("AddToCart")
+          button?.classList.remove("disabled")
+          button?.classList.add("active")
         }
-      });
-    });
-    this.refreshCarousel()
-  }
+        for (const key of element.images)
+        {
+          console.log(key)
+          const ComponentRef = this.imagesComponent.container.createComponent(ImageComponent);
+          ComponentRef.instance.image = key
+          const cardElement = ComponentRef.location.nativeElement;
+          cardElement.classList.add('carousel-item')
+          if (f)
+            cardElement.classList.add('active'), f = false
+        }
+      })
+      })
+      this.refreshCarousel()
+    }
   public addToCart() : void{
+    var quantity : any = (document.querySelector("input")?.value)
     var cart : any = (this.localStorage.getItem("Cart"))
-    console.log(cart)
     if (cart != '{}')
       cart = JSON.parse(cart)
     else
@@ -64,7 +72,7 @@ export class ProductDetailsComponent implements AfterViewInit {
     cart.forEach((element: {id:number, quantity:number}) => {
       if (+element.id == this.id)
       {
-        element.quantity++
+        element.quantity = +(element.quantity) + +(quantity)
         this.localStorage.setItem("Cart", JSON.stringify(cart))
         alert("added to cart")
         found = true;
@@ -73,7 +81,7 @@ export class ProductDetailsComponent implements AfterViewInit {
     if (!found)
     {
 
-      cart.push({id:this.id, quantity:1})
+      cart.push({id:this.id, quantity:quantity})
       this.localStorage.setItem("Cart", JSON.stringify(cart))
       alert("added to cart")
     }

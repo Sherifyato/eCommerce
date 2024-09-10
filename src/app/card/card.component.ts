@@ -42,11 +42,15 @@ export class CardComponent implements AfterViewInit {
       this.container2.createComponent(InStockComponent);
   }
   public addToCart() : void{
-    var cart = JSON.parse(this.localStorage.getItem("Cart"))
-
+    var cart : any= (this.localStorage.getItem("Cart"))
+    console.log()
+    if (cart == '{}')
+      cart = []
+    else
+      cart = JSON.parse(cart)
     var found :boolean = false;
     cart.forEach((element: {id:number, quantity:number}) => {
-      if (+element.id == this.Id)
+      if (element.id == this.Id)
       {
         element.quantity++
         this.localStorage.setItem("Cart", JSON.stringify(cart))

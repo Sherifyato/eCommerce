@@ -1,0 +1,63 @@
+<div class="user-profile">
+  <h2>User Profile</h2>
+
+  <div *ngIf="!(updatingEmail || updatingPassword || isEditing || deleting)">
+    <p><strong>First Name:</strong> {{ user.firstName }}</p>
+    <p><strong>Last Name:</strong> {{ user.lastName }}</p>
+    <p><strong>Email:</strong> {{ user.email }}</p>
+    <button (click)="toggleEdit()">Edit</button>
+    <button (click)="toggleEditEmail()">Change Email</button>
+    <button (click)="toggleEditPassword()">Change Password</button>
+    <button class="delete" (click)="toggleDeletion()">Delete Account</button>
+  </div>
+
+  <div *ngIf="isEditing">
+    <label>
+      First Name:
+      <input [(ngModel)]="user.firstName" />
+    </label>
+    <br />
+    <label>
+      Last Name:
+      <input [(ngModel)]="user.lastName" />
+    </label>
+    <br />
+    <button class="edit-profile" (click)="saveChanges()">Save</button>
+    <button class="edit-profile" (click)="toggleEdit()">Cancel</button>
+  </div>
+  <div *ngIf="updatingEmail">
+    <label>
+      Email:
+      <input [(ngModel)]="newEmail" />
+    </label>
+    <label>
+      Current Password:
+      <input type="password" [(ngModel)]="currentPassword" />
+    </label>
+    <br />
+    <button class="edit-profile" (click)="saveEmail()">Save</button>
+    <button class="edit-profile" (click)="toggleEditEmail()">Cancel</button>
+  </div>
+  <div *ngIf="updatingPassword">
+    <label>
+      Current Password:
+      <input type="password" [(ngModel)]="currentPassword" />
+    </label>
+    <br />
+    <label>
+      New Password:
+      <input type="password" [(ngModel)]="newPassword" />
+    </label>
+    <br />
+    <button class="edit-profile" (click)="savePassword()">Save</button>
+    <button class="edit-profile" (click)="toggleEditPassword()">Cancel</button>
+  </div>
+  <div *ngIf="deleting">
+    <label>
+      Current Password:
+      <input type="password" [(ngModel)]="currentPassword" />
+    </label>
+    <button class="delete" (click)="delete()">Save</button>
+    <button class="edit-profile" (click)="toggleDeletion()">Cancel</button>
+  </div>
+</div>

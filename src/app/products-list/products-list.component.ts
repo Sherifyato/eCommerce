@@ -21,8 +21,11 @@ export class ProductsListComponent implements OnInit {
   @ViewChild("dynamicContainer", { read: ViewContainerRef }) container!: ViewContainerRef;
   @ViewChild(PaginationComponent) paginationComponent !: PaginationComponent
   ngOnInit(): void {
-    this.jsonReader.getJsonData('products.json').subscribe(data => {
-      const pages = Math.ceil((data.length) / 8);
+    fetch(`http://localhost:3000/product?page=${this.page}`, {})
+    .then(response => response.json())
+    .then(data => {
+      const pages = (data.total + 7) / 8;
+      data = data.data;
       const cur = this.page;
       const url = '/products';
       this.paginationComponent.container.element.nativeElement.innerHTML = `<li class="page-item ${cur == 1 ? "disabled" : ""}"><a class="page-link" href="${url + "?page=" + (cur - 1)}">Previous</a></li>`
@@ -32,26 +35,19 @@ export class ProductsListComponent implements OnInit {
         else
           this.paginationComponent.container.element.nativeElement.innerHTML += `<li class="page-item"><a class="page-link" href="${url + "?page=" + i}">${i}</a></li>`
       }
-      this.paginationComponent.container.element.nativeElement.innerHTML += `<li class="page-item"><a class="page-link" href="${url + "?page=" + (cur + 1)}">Next</a></li>`
-
-      console.log(this.paginationComponent)
-        const start = (this.page - 1) * 8;
-        const end = this.page * 8;
-        data = data.slice(start, end);
-        if (this.page == 0)
-          data = []
-        if (data.length)
-          this.container.element.nativeElement.innerHTML = '';
-        data.forEach((element : any) => {
+      this.paginationComponent.container.element.nativeElement.innerHTML += `<li class="page-ite ${cur == pages ? "disabled" : ""}"><a class="page-link" href="${url + "?page=" + (cur + 1)}">Next</a></li>`
+      if (data.length)
+        this.container.element.nativeElement.innerHTML = '';
+      data.forEach((element : any) => {
         const newCard = this.container.createComponent(CardComponent);
 
         newCard.instance.title = element.title;
         newCard.instance.stockStatus = element.stock > 0 ? "In Stock" : "Out of Stock";
         newCard.instance.price = element.price;
         newCard.instance.details = element.description;
-        newCard.instance.image = element.thumbnail;
-        newCard.instance.Id = element.id;
-        newCard.instance.reviews = element.rating;
+        newCard.instance.image = element.images[0];
+        newCard.instance.Id = element._id;
+        newCard.instance.reviews = element.rate;
         const cardElement = newCard.location.nativeElement;
         cardElement.classList.add('col-lg-3');
         cardElement.classList.add('col-md-4');
@@ -62,8 +58,7 @@ export class ProductsListComponent implements OnInit {
         cardElement.classList.add('align-items-stretch');
 
 
-      });
-    });
+      })
+    })
   }
-
 }

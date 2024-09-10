@@ -9,10 +9,21 @@
         <h5>{{category}}</h5>
         <p>{{description}}</p>
         <p>${{price}}</p>
-        <button class="btn btn-primary btn-lg active" (click)="addToCart()">Add to Cart</button>
+        <div class="row">
+          <div class="col-3">
+
+            <button class="btn mb-4 btn-primary btn-lg disabled" id="AddToCart" (click)="addToCart()">Add to Cart</button>
+          </div>
+          <div class="col-2">
+              <input type="number" id="quantity" class="form-control" aria-live="polite" data-bs-step="counter" name="quantity" title="quantity" value="1" min="0" max="10" step="1" data-bs-round="0" aria-label="Quantity selector">
+          </div>
+
+        </div>
+          <h3>{{stock ? stock + ' in stock' : "out of stock"}}</h3>
     </div>
   </div>
   <div class="row">
 
   </div>
 </div>
+
