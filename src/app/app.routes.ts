@@ -15,12 +15,12 @@ export const routes: Routes = [
     {path:'',redirectTo:'home',pathMatch:'full'},
     {path:'home',component:HomeComponent},
     {path:'products',component:ProductsListComponent},
-    {path:'products/:id',component:ProductDetailsComponent},
     {path:'cart', component:CartComponent},
     {path:'login', component:LoginComponent},
     {path:'register', component:RegisterComponent},
     {path:'profile', component:ProfileComponent},
     {path:'products/upload', component:ProductUploadComponent},
     {path:'products/edit/:id', component:ProductEditComponent},
+    {path:'products/:id',component:ProductDetailsComponent},
     {path:'**',component:NotFoundComponent}
 ];
