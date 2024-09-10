@@ -71,10 +71,8 @@ export class ProductEditComponent implements OnInit {
     for (const file of this.selectedFiles) {
       formData.append('images', file);
     }
-    console.log(this.product)
 
     // Send PUT request to update product
-    console.log(`http://localhost:3000/product/${this.product._id}`)
     fetch(`http://localhost:3000/product/${this.product._id}`, {
       method: 'PUT',
       headers: {

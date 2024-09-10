@@ -34,7 +34,6 @@ export class LoginComponent implements OnInit {
       })
     if (flag)
       return
-    console.log(body)
     var rememberMe = false
     if ((document.getElementById('rememberMe') as HTMLInputElement).checked)
       rememberMe = true

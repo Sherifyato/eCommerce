@@ -22,7 +22,6 @@ export class NavbarComponent implements OnInit{
         'accesstoken': this.localStorageService.getItem('token')
     }}).then(response => {
       if (response.status === 200) {
-        console.log(2)
         const doc = document.querySelectorAll('.navbar-nav')
         doc.forEach((ele) => {
           const a = ele?.querySelectorAll('.nav-link')
@@ -35,7 +34,6 @@ export class NavbarComponent implements OnInit{
       }
       else
       {
-        console.log(2)
         const doc = document.querySelectorAll('.navbar-nav')
         doc.forEach((ele) => {
           const a = ele?.querySelectorAll('.nav-link')

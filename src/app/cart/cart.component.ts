@@ -13,31 +13,40 @@ export class CartComponent implements AfterViewInit{
   @ViewChild("dynamicContainer", { read: ViewContainerRef }) container!: ViewContainerRef;
   constructor(private localStorage : LocalStorageService, private jsonReader: JsonReaderService){}
   ngAfterViewInit(): void {
-    const cart : Array<{id: number, quantity: number}> = JSON.parse(this.localStorage.getItem("Cart"))
-    const products = this.jsonReader.getJsonData('products.json').subscribe()
-    cart.forEach((product : {id: number, quantity: number}) =>
-    {
-      this.jsonReader.getJsonData('products.json').subscribe(data => {
-        var f : boolean = true
-        data.forEach((element : any) => {
-          if(element.id == product.id)
+
+      fetch('http://localhost:3000/cart', {
+        method: "GET",
+        headers: {
+          accesstoken: this.localStorage.getItem('token')
+        }
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (!data.success && data.error_msg != 'Cart not found')
+        {
+          alert('Please login to add products to cart')
+          return
+        }
+        data = data.data
+        data.products.forEach((element : any) => {
+          fetch(`http://localhost:3000/product/${element.productId}`,
           {
+            method: "GET"
+          })
+          .then(response => response.json())
+          .then(data => {
+            data = data.data
             const componentRef = this.container.createComponent(CartCardComponent)
-            componentRef.instance.image = element.thumbnail
-            componentRef.instance.id = element.id
-            componentRef.instance.price = element.price
-            componentRef.instance.quantity = product.quantity
-            componentRef.instance.title = element.title
-
-          }
+            componentRef.instance.image = data.images[0]
+            componentRef.instance.id = data._id
+            componentRef.instance.price = data.price
+            componentRef.instance.quantity = element.quantity
+            componentRef.instance.title = data.title
+          });
+          })
         });
-      });
-    })
-    for (const product  in cart)
-    {
-
-    }
+      }
 
 
   }
-}
+

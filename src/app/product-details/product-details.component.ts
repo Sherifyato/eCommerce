@@ -45,7 +45,6 @@ export class ProductDetailsComponent implements AfterViewInit {
         }
         for (const key of element.images)
         {
-          console.log(key)
           const ComponentRef = this.imagesComponent.container.createComponent(ImageComponent);
           ComponentRef.instance.image = key
           const cardElement = ComponentRef.location.nativeElement;
@@ -57,35 +56,39 @@ export class ProductDetailsComponent implements AfterViewInit {
       })
       this.refreshCarousel()
     }
-  public addToCart() : void{
-    var quantity : any = (document.querySelector("input")?.value)
-    var cart : any = (this.localStorage.getItem("Cart"))
-    if (cart != '{}')
-      cart = JSON.parse(cart)
-    else
-      cart = []
-    if (cart.isArray == false)
-    {
-
-    }
-    var found :boolean = false;
-    cart.forEach((element: {id:number, quantity:number}) => {
-      if (+element.id == this.id)
-      {
-        element.quantity = +(element.quantity) + +(quantity)
-        this.localStorage.setItem("Cart", JSON.stringify(cart))
-        alert("added to cart")
-        found = true;
-      }
-    });
-    if (!found)
-    {
-
-      cart.push({id:this.id, quantity:quantity})
-      this.localStorage.setItem("Cart", JSON.stringify(cart))
-      alert("added to cart")
-    }
+    public addToCart() : void{
+      fetch('http://localhost:3000/user', {
+        method: 'GET',
+        headers: {
+          accesstoken: this.localStorage.getItem('token')
+        }
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (!data.success)
+        {
+          alert('Please login to add products to cart')
+          return
+        }
+      var quantity : any = (document.querySelector("input")?.value)
+      fetch('http://localhost:3000/cart', {
+        method: 'POST',
+        headers: {
+          accesstoken: this.localStorage.getItem('token'),
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({productId: this.id, quantity})
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.success)
+        alert('Product added to cart')
+        else
+        alert(data.message)
+      })
+    })
   }
+
   refreshCarousel(): void {
     const nativeElement = this.carousel.nativeElement
 

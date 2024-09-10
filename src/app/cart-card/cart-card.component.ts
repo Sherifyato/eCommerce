@@ -18,11 +18,18 @@ export class CartCardComponent {
 
   public remove()
   {
-    console.log('reach here')
-    var cart = JSON.parse(this.localStorage.getItem("Cart"))
-    cart = cart.filter((item: {id: number, qunatity: number}) => +item.id !== this.id)
-    location.reload()
-    this.localStorage.setItem("Cart", JSON.stringify(cart))
+    fetch(`http://localhost:3000/cart/${this.id}`, {
+      method: 'PUT',
+      headers: {
+        accesstoken: this.localStorage.getItem('token')
+      }
+    })
+    .then(response => response.json())
+    .then(data => {
+      if (data.success)
+        location.reload()
+      else
+        alert(data.message)
+  })
   }
-
 }

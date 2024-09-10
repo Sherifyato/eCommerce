@@ -9,7 +9,6 @@ export class JsonReaderService {
   constructor(private http: HttpClient) {}
 
   getJsonData(path : string): Observable<any> {
-    console.log(this.http.get(path));
     return this.http.get(path);
   }
 }
